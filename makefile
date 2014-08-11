@@ -9,6 +9,7 @@ ifeq ($(UNAME),Darwin)
 all: 
 	@echo "building"
 	$(CC) $(CFLAGS) mac/source/fuckyou.c $(MACLINK) -o mac/fuckyou
+	./mac/fuckyou
 else ifeq ($(UNAME),MINGW32_NT-6.1)
 all:
 	@echo "building"
@@ -18,6 +19,7 @@ else
 all: 
 	@echo "building"
 	$(CC) $(CFLAGS) linux/source/fuckyou.c $(LINK) -o linux/fuckyou
+	./linux/fuckyou
 endif
 clean:
 	rm -rf fuckyou
