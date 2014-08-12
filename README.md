@@ -11,12 +11,13 @@ Credit goes to Lazy Foo Productions for providing tutorials and instructions on 
 Installing SDL
 ===========
 ## On Linux
-  apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev
-  
+```
+apt-get install libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev
+```
 or
-
-  yum install SDL-devel SDL_mixer-devel SDL_image-devel SDL_ttf-devel
-  
+```
+yum install SDL-devel SDL_mixer-devel SDL_image-devel SDL_ttf-devel
+```
 
 ## On Mac
 Install Homebrew (http://brew.sh/) past the following in the terminal
