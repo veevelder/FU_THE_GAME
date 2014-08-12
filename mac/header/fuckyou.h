@@ -39,6 +39,13 @@ SDL_Rect clipsFinger[6];
 /*Level One Blocks*/
 #define BLOCK_WIDTH 64 
 #define BLOCK_HEIGHT 64
+SDL_Rect clipsBlock[29];
+/*g3* = ground 3x3 block sprite * = location from top left to bottom right
+i.e. 0 = top left and 1 = top middle etc.*/
+enum {bush, vine, grass, g30, g31, g32, g10, g33, g34, g35, g11, g36, g37,
+	g38, g00, tree0, tree1, tree2, g20, g21, tree3, tree4, tree5, tree6,
+	tree7, tree8, rock0, rock1, rock2};
+
 SDL_Rect clipsControls[12];
 enum {wKey, aKey, sKey, dKey, upKey, dwKey, enKey, esKey, spKey, lClick, rClick,
         aim};
@@ -52,9 +59,6 @@ int quit = 0;
 typedef enum {mainmenu, pausemenu, controlsmenu, running} estate;
 estate state = mainmenu;
 estate prevState = mainmenu;
-
-/*File Parser*/
-FILE *lof;
 
 /*Global Surfaces*/
 #define NUMSURF 35
@@ -85,6 +89,12 @@ typedef struct {
 } Finger;
 
 void showFinger(Finger *);
+
+typedef struct {
+    int offSet, frame, status;
+} levelBlock;
+
+void showLevelBlock(levelBlock *);
 
 typedef struct {
     SDL_Rect dpos;

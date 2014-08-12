@@ -58,7 +58,7 @@ void
 load_files() {
     /*Global Surfaces*/
     surfaces[bg] = load_image("assets/main_menu/bg_menu.png");
-    surfaces[fingerSprite] = load_image("assets/sprites/finger_sprite.png");
+    surfaces[fingerSprite] = load_image("assets/main_menu/finger_sprite.png");
 
     /*Main Menu Files*/
     surfaces[mmFinger] = load_image("assets/main_menu/middlefinger.png");
@@ -81,23 +81,6 @@ load_files() {
     surfaces[cmTitle] = load_image("assets/controls_menu/cmTitle.png");
     surfaces[cmSubtitle] = load_image("assets/controls_menu/cmSubtitle.png");
     surfaces[cmControls] = load_image("assets/controls_menu/cmControls.png");
-    lof = fopen("assets/level_one/levelOneSurfaces.csv", "r");
-    if(lof == NULL) {
-        printf("Faild to open file");
-        exit(0);
-    }
-}
-
-void
-set_cArray() {
-    int i, tx, ty, tw, th, tf;
-    for(i = 0;fscanf(lof, "%d,%d,%d,%d,%d", &tx, &ty, &tw, &th, &tf) != EOF; i++) {
-            SURF[i].pos.x = tx;
-            SURF[i].pos.y = ty;
-            SURF[i].pos.w = tw;
-            SURF[i].pos.h = th;
-            SURF[i].face = tf;
-    }
 }
 
 void
@@ -432,6 +415,152 @@ set_clips() {
     clipsControls[aim].y = BLOCK_HEIGHT * 6;
     clipsControls[aim].w = BLOCK_WIDTH * 2;
     clipsControls[aim].h = BLOCK_HEIGHT * 4;
+
+    /*level one clips*/
+    clipsBlock[bush].x = BLOCK_WIDTH;
+    clipsBlock[bush].y = 0;
+    clipsBlock[bush].w = BLOCK_WIDTH;
+    clipsBlock[bush].h = BLOCK_HEIGHT;
+
+    clipsBlock[vine].x = BLOCK_WIDTH * 2;
+    clipsBlock[vine].y = 0;
+    clipsBlock[vine].w = BLOCK_WIDTH;
+    clipsBlock[vine].h = BLOCK_HEIGHT;
+
+    clipsBlock[grass].x = BLOCK_WIDTH * 4;
+    clipsBlock[grass].y = 0;
+    clipsBlock[grass].w = BLOCK_WIDTH;
+    clipsBlock[grass].h = BLOCK_HEIGHT;
+
+    clipsBlock[g30].x = 0;
+    clipsBlock[g30].y = BLOCK_HEIGHT;
+    clipsBlock[g30].w = BLOCK_WIDTH;
+    clipsBlock[g30].h = BLOCK_HEIGHT;
+
+    clipsBlock[g31].x = BLOCK_WIDTH;
+    clipsBlock[g31].y = BLOCK_HEIGHT;
+    clipsBlock[g31].w = BLOCK_WIDTH;
+    clipsBlock[g31].h = BLOCK_HEIGHT;
+
+    clipsBlock[g32].x = BLOCK_WIDTH * 2;
+    clipsBlock[g32].y = BLOCK_HEIGHT;
+    clipsBlock[g32].w = BLOCK_WIDTH;
+    clipsBlock[g32].h = BLOCK_HEIGHT;
+
+    clipsBlock[g10].x = BLOCK_WIDTH * 7;
+    clipsBlock[g10].y = BLOCK_HEIGHT;
+    clipsBlock[g10].w = BLOCK_WIDTH;
+    clipsBlock[g10].h = BLOCK_HEIGHT;
+
+    clipsBlock[g33].x = 0;
+    clipsBlock[g33].y = BLOCK_HEIGHT * 2;
+    clipsBlock[g33].w = BLOCK_WIDTH;
+    clipsBlock[g33].h = BLOCK_HEIGHT;
+
+    clipsBlock[g34].x = BLOCK_WIDTH;
+    clipsBlock[g34].y = BLOCK_HEIGHT * 2;
+    clipsBlock[g34].w = BLOCK_WIDTH;
+    clipsBlock[g34].h = BLOCK_HEIGHT;
+
+    clipsBlock[g35].x = BLOCK_WIDTH * 2;
+    clipsBlock[g35].y = BLOCK_HEIGHT * 2;
+    clipsBlock[g35].w = BLOCK_WIDTH;
+    clipsBlock[g35].h = BLOCK_HEIGHT;
+
+    clipsBlock[g11].x = BLOCK_WIDTH * 7;
+    clipsBlock[g11].y = BLOCK_HEIGHT * 2;
+    clipsBlock[g11].w = BLOCK_WIDTH;
+    clipsBlock[g11].h = BLOCK_HEIGHT;
+
+    clipsBlock[g36].x = 0;
+    clipsBlock[g36].y = BLOCK_HEIGHT * 3;
+    clipsBlock[g36].w = BLOCK_WIDTH;
+    clipsBlock[g36].h = BLOCK_HEIGHT;
+
+    clipsBlock[g37].x = BLOCK_WIDTH;
+    clipsBlock[g37].y = BLOCK_HEIGHT * 3;
+    clipsBlock[g37].w = BLOCK_WIDTH;
+    clipsBlock[g37].h = BLOCK_HEIGHT;
+
+    clipsBlock[g38].x = BLOCK_WIDTH * 2;
+    clipsBlock[g38].y = BLOCK_HEIGHT * 3;
+    clipsBlock[g38].w = BLOCK_WIDTH;
+    clipsBlock[g38].h = BLOCK_HEIGHT;
+
+    clipsBlock[g00].x = BLOCK_WIDTH * 7;
+    clipsBlock[g00].y = BLOCK_HEIGHT * 3;
+    clipsBlock[g00].w = BLOCK_WIDTH;
+    clipsBlock[g00].h = BLOCK_HEIGHT;
+
+    clipsBlock[tree0].x = 0;
+    clipsBlock[tree0].y = BLOCK_HEIGHT * 4;
+    clipsBlock[tree0].w = BLOCK_WIDTH;
+    clipsBlock[tree0].h = BLOCK_HEIGHT;
+
+    clipsBlock[tree1].x = BLOCK_WIDTH;
+    clipsBlock[tree1].y = BLOCK_HEIGHT * 4;
+    clipsBlock[tree1].w = BLOCK_WIDTH;
+    clipsBlock[tree1].h = BLOCK_HEIGHT;
+
+    clipsBlock[tree2].x = BLOCK_WIDTH * 2;
+    clipsBlock[tree2].y = BLOCK_HEIGHT * 4;
+    clipsBlock[tree2].w = BLOCK_WIDTH;
+    clipsBlock[tree2].h = BLOCK_HEIGHT;
+
+    clipsBlock[g20].x = BLOCK_WIDTH * 6;
+    clipsBlock[g20].y = BLOCK_HEIGHT * 4;
+    clipsBlock[g20].w = BLOCK_WIDTH;
+    clipsBlock[g20].h = BLOCK_HEIGHT;
+
+    clipsBlock[g21].x = BLOCK_WIDTH * 7;
+    clipsBlock[g21].y = BLOCK_HEIGHT * 4;
+    clipsBlock[g21].w = BLOCK_WIDTH;
+    clipsBlock[g21].h = BLOCK_HEIGHT;
+
+    clipsBlock[tree3].x = 0;
+    clipsBlock[tree3].y = BLOCK_HEIGHT * 5;
+    clipsBlock[tree3].w = BLOCK_WIDTH;
+    clipsBlock[tree3].h = BLOCK_HEIGHT;
+
+    clipsBlock[tree4].x = BLOCK_WIDTH;
+    clipsBlock[tree4].y = BLOCK_HEIGHT * 5;
+    clipsBlock[tree4].w = BLOCK_WIDTH;
+    clipsBlock[tree4].h = BLOCK_HEIGHT;
+
+    clipsBlock[tree5].x = BLOCK_WIDTH * 2;
+    clipsBlock[tree5].y = BLOCK_HEIGHT * 5;
+    clipsBlock[tree5].w = BLOCK_WIDTH;
+    clipsBlock[tree5].h = BLOCK_HEIGHT;
+
+    clipsBlock[tree6].x = 0;
+    clipsBlock[tree6].y = BLOCK_HEIGHT * 6;
+    clipsBlock[tree6].w = BLOCK_WIDTH;
+    clipsBlock[tree6].h = BLOCK_HEIGHT;
+
+    clipsBlock[tree7].x = BLOCK_WIDTH;
+    clipsBlock[tree7].y = BLOCK_HEIGHT * 6;
+    clipsBlock[tree7].w = BLOCK_WIDTH;
+    clipsBlock[tree7].h = BLOCK_HEIGHT;
+
+    clipsBlock[tree8].x = BLOCK_WIDTH * 2;
+    clipsBlock[tree8].y = BLOCK_HEIGHT * 6;
+    clipsBlock[tree8].w = BLOCK_WIDTH;
+    clipsBlock[tree8].h = BLOCK_HEIGHT;
+
+    clipsBlock[rock0].x = 0;
+    clipsBlock[rock0].y = BLOCK_HEIGHT * 7;
+    clipsBlock[rock0].w = BLOCK_WIDTH;
+    clipsBlock[rock0].h = BLOCK_HEIGHT;
+
+    clipsBlock[rock1].x = BLOCK_WIDTH;
+    clipsBlock[rock1].y = BLOCK_HEIGHT * 7;
+    clipsBlock[rock1].w = BLOCK_WIDTH;
+    clipsBlock[rock1].h = BLOCK_HEIGHT;
+
+    clipsBlock[rock2].x = BLOCK_WIDTH * 2;
+    clipsBlock[rock2].y = BLOCK_HEIGHT * 7;
+    clipsBlock[rock2].w = BLOCK_WIDTH;
+    clipsBlock[rock2].h = BLOCK_HEIGHT;
 }
 
 void
@@ -451,16 +580,21 @@ showFinger(Finger * f) {
     if(f->frame == 0) {
         f->status = 1;
     }
+
     apply_surface(300, f->offSet, surfaces[fingerSprite], screen, &clipsFinger[f->frame]);
 }
 
+void
+showLevelBlock(levelBlock * l) {
+	/*random generate map here?*/
+    apply_surface(0, 0, surfaces[fgLevelOne], surfaces[bgLevelOne], &clipsBlock[bush]);
+}
 
 int 
 main(int argc, char* args[]) {
     init();
     load_files();
     set_font();
-    set_cArray();
 
     /*Seeding Random Number*/
     srand(time(NULL));
@@ -492,6 +626,11 @@ main(int argc, char* args[]) {
     f.offSet = 305;
     f.frame = 0;
     f.status = 1;
+
+    levelBlock l;
+    l.offSet = 305;
+    l.frame = 0;
+    l.status = 1;
     set_clips();
 
     while(quit == 0) {
@@ -604,7 +743,7 @@ main(int argc, char* args[]) {
             moveCloud(&fourCloud);
             moveCloud(&fiveCloud);
             moveCloud(&sixCloud);
-            apply_surface(0, 0, surfaces[fgLevelOne], screen, &camera);
+            showLevelBlock(&l);
             show(&myDot);
             break;
         }

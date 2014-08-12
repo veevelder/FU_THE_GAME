@@ -22,4 +22,6 @@ all:
 	./linux/fuckyou
 endif
 clean:
-	rm -rf fuckyou
+	rm -rf mac/fuckyou
+	rm -rf linux/fuckyou
+	rm -rf windows/fuckyou.exe
