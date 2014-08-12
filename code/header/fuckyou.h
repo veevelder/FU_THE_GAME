@@ -29,8 +29,8 @@ Karl "The Little Fuck" Ott
 #define CLOUDONE_HEIGHT 174
 #define CLOUDONE_WIDTH 157
 
-#define LEVEL_WIDTH 2560
-#define LEVEL_HEIGHT 1024
+#define LEVEL_WIDTH 5120 
+#define LEVEL_HEIGHT 600 
 
 #define FINGER_WIDTH 35
 #define FINGER_HEIGHT 32
@@ -43,8 +43,8 @@ SDL_Rect clipsBlock[29];
 /*g3* = ground 3x3 block sprite * = location from top left to bottom right
 i.e. 0 = top left and 1 = top middle etc.*/
 enum {bush, vine, grass, g30, g31, g32, g10, g33, g34, g35, g11, g36, g37,
-        g38, g00, tree0, tree1, tree2, g20, g21, tree3, tree4, tree5, tree6,
-        tree7, tree8, rock0, rock1, rock2};
+	g38, g00, tree0, tree1, tree2, g20, g21, tree3, tree4, tree5, tree6,
+	tree7, tree8, rock0, rock1, rock2};
 
 SDL_Rect clipsControls[12];
 enum {wKey, aKey, sKey, dKey, upKey, dwKey, enKey, esKey, spKey, lClick, rClick,
@@ -67,7 +67,7 @@ enum {bg, fingerSprite, mmFinger, mmTitle, mmSubtitle, mmNewGame, mmControls,
         mmExit, pmBG, pmResume, pmControls, pmExit, pmTitle, pmSubtitle, dot, 
         cloudOne, cloudTwo, cmTitle, cmSubtitle, cmBack, cmExit, cmControls, 
         cmUp, cmDw, cmEs, cmA, cmS, cmD, cmSp, cmEn, cmLC, cmRC, cmAim, 
-        bgLevelOne, fgLevelOne};
+        bgLevelOne, fgElements};
 
 /*Font*/
 TTF_Font *font40 = NULL;
@@ -91,7 +91,6 @@ typedef struct {
 void showFinger(Finger *);
 
 typedef struct {
-    int offSet, frame, status;
 } levelBlock;
 
 void showLevelBlock(levelBlock *);
@@ -128,10 +127,11 @@ void moveCloud(Clouds *);
 void showCloud(Clouds *);
 void init_cloud(Clouds *, SDL_Surface *);
 
+#define C_BLOCK 200 
 typedef struct {
     SDL_Rect pos;
     int face;
 } Surface;
 
-Surface SURF[19];
+Surface SURF[C_BLOCK];
 #endif

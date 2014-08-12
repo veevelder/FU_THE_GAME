@@ -8,20 +8,19 @@ WINLINK=-lmingw32 -lSDLmain -lSDL -lSDL_image -lSDL_ttf
 ifeq ($(UNAME),Darwin)
 all: 
 	@echo "building"
-	$(CC) $(CFLAGS) mac/source/fuckyou.c $(MACLINK) -o mac/fuckyou
-	./mac/fuckyou
+	$(CC) $(CFLAGS) code/source/fuckyou.c $(MACLINK) -o fuckyou
+	./fuckyou
 else ifeq ($(UNAME),MINGW32_NT-6.1)
 all:
 	@echo "building"
-	$(CC) $(CFLAGS) windows/source/fuckyou.c $(WINLINK) -o windows/fuckyou.exe
-	windows/fuckyou.exe
+	$(CC) $(CFLAGS) code/source/fuckyou.c $(WINLINK) -o fuckyou.exe
+	fuckyou.exe
 else
 all: 
 	@echo "building"
-	$(CC) $(CFLAGS) linux/source/fuckyou.c $(LINK) -o linux/fuckyou
-	./linux/fuckyou
+	$(CC) $(CFLAGS) code/source/fuckyou.c $(LINK) -o fuckyou
+	./fuckyou
 endif
 clean:
-	rm -rf mac/fuckyou
-	rm -rf linux/fuckyou
-	rm -rf windows/fuckyou.exe
+	rm -rf fuckyou
+	rm -rf fuckyou.exe
