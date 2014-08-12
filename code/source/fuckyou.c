@@ -728,7 +728,7 @@ showLevelBlock(levelBlock * l) {
         int placeBlock = rand() % 4;
         if(placeBlock == 0) {
             /*place block*/
-            int blockHeight = rand() % (LEVEL_HEIGHT - BLOCK_HEIGHT);
+            int blockHeight = (rand() % (LEVEL_HEIGHT - BLOCK_HEIGHT)) + (BLOCK_HEIGHT * 2);
             /*select witch block to place*/
             int blockSelect = rand() % 12;
             if(blockSelect == 0) {
