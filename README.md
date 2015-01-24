@@ -11,6 +11,8 @@ Credit goes to Lazy Foo Productions for providing tutorials and instructions on 
 This game fucking blows. One Star
 -Nate(Collaborator)
 
+To True -Matt(Collaborator)
+
 Installing SDL
 ===========
 ## On Linux
