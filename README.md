@@ -8,6 +8,9 @@ For Windows, MinGW was used to compile.
 Credit goes to Lazy Foo Productions for providing tutorials and instructions on how to set up SDL for multiple platforms.
 (http://lazyfoo.net/)
 
+This game fucking blows. One Star
+-Nate(Collaborator)
+
 Installing SDL
 ===========
 ## On Linux
