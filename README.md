@@ -19,7 +19,7 @@ yum install SDL-devel SDL_mixer-devel SDL_image-devel SDL_ttf-devel
 ```
 
 ## On Mac
-Install [Homebrew](http://brew.sh/) past the following in the terminal
+Install [Homebrew](http://brew.sh/) paste the following in the terminal
 ```
 ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 ```  
