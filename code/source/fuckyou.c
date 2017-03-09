@@ -8,54 +8,49 @@ Karl "The Little Fuck" Ott
 
 #include "../header/fuckyou.h"
 
-SDL_Surface *
-load_image(const char* filename) {
+SDL_Surface * load_image(const char* filename) {
     SDL_Surface* loadedImage = NULL;
     SDL_Surface* optimizedImage = NULL;
     loadedImage = IMG_Load(filename);
     if(loadedImage != NULL) {
-        optimizedImage = SDL_DisplayFormatAlpha(loadedImage);
+		optimizedImage = SDL_ConvertSurface(loadedImage, screen->format, NULL);
         SDL_FreeSurface(loadedImage);
-        if(optimizedImage != NULL) {
-            SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, SDL_MapRGB(optimizedImage->format, 0, 0xFF, 0xFF));
-        }
-    }
-    if(optimizedImage == NULL) {
-        printf("failed to load %s\n", filename);
-        exit(0);
+		if(optimizedImage == NULL) {
+		    printf("failed to load %s\n", filename);
+		    exit(0);
+		}
     }
     return optimizedImage;
 }
 
-void 
-apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip) {
+void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip) {
     SDL_Rect offset;
     offset.x = x;
     offset.y = y;
     SDL_BlitSurface(source, clip, destination, &offset);
 }
 
-void 
-init() {
+void init() {
     if(SDL_Init(SDL_INIT_EVERYTHING) == -1) {
         printf("sdl failed to init\n");
         exit(0);
     }
-    screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
+    //screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE);
 
-    if(screen == NULL) {
-        printf("screen failed to set\n");
+	window = SDL_CreateWindow("FUCK YOU THE GAME", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+    if(window == NULL) {
+        printf("window failed to set\n");
         exit(0);
     }
     if(TTF_Init() == -1) {
         printf("font faild to init\n");
         exit(0);
     }
-    SDL_WM_SetCaption("FUCK YOU THE GAME", NULL);
+    screen = SDL_GetWindowSurface(window);
 }
 
-void
-load_files() {
+void load_files() {
     /*Global Surfaces*/
     surfaces[bg] = load_image("assets/main_menu/bg_menu.png");
     surfaces[fingerSprite] = load_image("assets/main_menu/finger_sprite.png");
@@ -83,8 +78,7 @@ load_files() {
     surfaces[cmControls] = load_image("assets/controls_menu/cmControls.png");
 }
 
-void
-set_font() {
+void set_font() {
     font20 = TTF_OpenFont("assets/fonts/ARCADEPI.TTF", 20);
     font40 = TTF_OpenFont("assets/fonts/ARCADEPI.TTF", 40);
     if(font20 == NULL || font40 == NULL) {
@@ -93,8 +87,7 @@ set_font() {
     }
 }
 
-void
-apply_text(int x, int y, TTF_Font *myFont, char * text, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip) {
+void apply_text(int x, int y, TTF_Font *myFont, char * text, SDL_Surface* source, SDL_Surface* destination, SDL_Rect* clip) {
     source = TTF_RenderText_Solid(myFont, text, textColor);
     if(source == NULL) {
         printf("failed to print %s\n", text);
@@ -103,8 +96,7 @@ apply_text(int x, int y, TTF_Font *myFont, char * text, SDL_Surface* source, SDL
     apply_surface(x, y, source, destination, clip);
 }
 
-void
-clean_up() {
+void clean_up() {
     int i = 0;
     for(; i < NUMSURF; i++) {
         SDL_FreeSurface(surfaces[i]);
@@ -116,8 +108,7 @@ clean_up() {
 }
 
 /* Dot functions */
-void 
-handle_input(Dot * x, Finger * f) {
+void handle_input(Dot * x, Finger * f) {
     if (event.type == SDL_KEYDOWN) {
         switch(event.key.keysym.sym) {
         case SDLK_w:
@@ -201,8 +192,7 @@ handle_input(Dot * x, Finger * f) {
     }
 }
 
-int
-check_collision(SDL_Rect A) {
+int check_collision(SDL_Rect A) {
     int i;
     for(i = 0; i < C_BLOCK; i++) {
 
@@ -215,8 +205,7 @@ check_collision(SDL_Rect A) {
     return 1;
 }
 
-void 
-move(Dot * d) {
+void move(Dot * d) {
     d->dpos.x += d->xVel;
     if((d->dpos.x<0) || (d->dpos.x+DOT_WIDTH > LEVEL_WIDTH) || check_collision(d->dpos) == 0) {
         d->dpos.x -= d->xVel;
@@ -227,13 +216,11 @@ move(Dot * d) {
     }
 }
 
-void 
-show(Dot * x) {
+void show(Dot * x) {
     apply_surface(x->dpos.x - camera.x, x->dpos.y - camera.y, surfaces[dot], screen, NULL);
 }
 
-void 
-set_camera(Dot * x) {
+void set_camera(Dot * x) {
     camera.x = (x->dpos.x + DOT_WIDTH/2) - SCREEN_WIDTH/2;
     camera.y = (x->dpos.y + DOT_HEIGHT/2) - SCREEN_HEIGHT/2;
 
@@ -251,15 +238,13 @@ set_camera(Dot * x) {
     }
 }
 /*Cloud Functions*/
-void 
-init_cloud(Clouds * z, SDL_Surface * pic) {
-    z->x = rand() % 1050 + 400;
+void init_cloud(Clouds * z, SDL_Surface * pic) {
+    z->x = rand() % 1050 + 800;
     z->y = rand() % 600 + 1;
     z->cloudType = pic;    
 }
 
-void 
-moveCloud(Clouds * cloud) {
+void moveCloud(Clouds * cloud) {
     cloud->x--;
     if(cloud->x<-200) {
         cloud->x = rand() % 1050 + 850;
@@ -273,35 +258,30 @@ moveCloud(Clouds * cloud) {
     }
 }
 
-void 
-showCloud(Clouds * x) {
+void showCloud(Clouds * x) {
     apply_surface(x->x, x->y, x->cloudType, screen, NULL);
 }
 
 /* Timer functions */
-void 
-start(Timer * x) {
+void start(Timer * x) {
     x->started = 1;
     x->paused = 0;
     x->startTicks = SDL_GetTicks();
 }
 
-void 
-stop(Timer * x) {
+void stop(Timer * x) {
     x->started = 0;
     x->paused = 0;
 }
 
-void 
-pause(Timer * x) {
+void pause(Timer * x) {
     if((x->started == 1) && (x->paused == 0)) {
         x->paused = 1;
         x->pausedTicks = SDL_GetTicks() - x->startTicks;
     }
 }
 
-void 
-unpause(Timer * x) {
+void unpause(Timer * x) {
     if(x->paused == 1) {
         x->paused = 0;
         x->startTicks = SDL_GetTicks() - x->pausedTicks;
@@ -309,8 +289,7 @@ unpause(Timer * x) {
     }
 }
 
-int 
-get_ticks(Timer * x) {
+int get_ticks(Timer * x) {
     if(x->started == 1) {
         if(x->paused == 1) {
             return x->pausedTicks;
@@ -322,8 +301,7 @@ get_ticks(Timer * x) {
     return 0;
 }
 
-void 
-set_clips() {
+void set_clips() {
     /*Finger Animation Stuff*/
     clipsFinger[0].x = 0;
     clipsFinger[0].y = 0;
@@ -563,8 +541,7 @@ set_clips() {
     clipsBlock[rock2].h = BLOCK_HEIGHT;
 }
 
-void
-showFinger(Finger * f) {
+void showFinger(Finger * f) {
     int local = SDL_GetTicks();
     if(f->status == 1 && (local - SOMETIME > 100)) {
             SOMETIME = local;
@@ -584,8 +561,7 @@ showFinger(Finger * f) {
     apply_surface(300, f->offSet, surfaces[fingerSprite], screen, &clipsFinger[f->frame]);
 }
 
-void
-showLevelBlock(levelBlock * l) {
+void showLevelBlock(levelBlock * l) {
 	/*random generate map here?*/
     /*starting platform*/
     apply_surface(5056, 536, surfaces[fgElements], surfaces[bgLevelOne], &clipsBlock[g32]);
@@ -1059,8 +1035,7 @@ showLevelBlock(levelBlock * l) {
     }
 }
 
-int 
-main(int argc, char* args[]) {
+int main(int argc, char* args[]) {
     init();
     load_files();
     set_font();
@@ -1111,6 +1086,9 @@ main(int argc, char* args[]) {
         switch(state) {
         case mainmenu: 
             apply_surface(0, 0, surfaces[bg], screen, &camera);
+            apply_surface(BACKGROUND_WIDTH, 0, surfaces[bg], screen, &camera);
+            apply_surface(0, BACKGROUND_HEIGHT, surfaces[bg], screen, &camera);
+            apply_surface(BACKGROUND_WIDTH, BACKGROUND_HEIGHT, surfaces[bg], screen, &camera);
             showCloud(&oneCloud);
             showCloud(&twoCloud);
             showCloud(&threeCloud);
@@ -1133,6 +1111,9 @@ main(int argc, char* args[]) {
             break;
         case pausemenu:
             apply_surface(0, 0, surfaces[bg], screen, NULL);
+            apply_surface(BACKGROUND_WIDTH, 0, surfaces[bg], screen, NULL);
+            apply_surface(0, BACKGROUND_HEIGHT, surfaces[bg], screen, NULL);
+            apply_surface(BACKGROUND_WIDTH, BACKGROUND_HEIGHT, surfaces[bg], screen, NULL);
             showCloud(&oneCloud);
             showCloud(&twoCloud);
             showCloud(&threeCloud);
@@ -1154,6 +1135,9 @@ main(int argc, char* args[]) {
             break;
         case controlsmenu:
             apply_surface(0, 0, surfaces[bg], screen, NULL);
+            apply_surface(BACKGROUND_WIDTH, 0, surfaces[bg], screen, NULL);
+            apply_surface(0, BACKGROUND_HEIGHT, surfaces[bg], screen, NULL);
+            apply_surface(BACKGROUND_WIDTH, BACKGROUND_HEIGHT, surfaces[bg], screen, NULL);
             showCloud(&oneCloud);
             showCloud(&twoCloud);
             showCloud(&threeCloud);
@@ -1198,6 +1182,9 @@ main(int argc, char* args[]) {
             move(&myDot);
             set_camera(&myDot);
             apply_surface(0, 0, surfaces[bgLevelOne], screen, &camera);
+            //apply_surface(BACKGROUND_WIDTH, 0, surfaces[bgLevelOne], screen, &camera);
+            //apply_surface(0, BACKGROUND_HEIGHT, surfaces[bgLevelOne], screen, &camera);
+            //apply_surface(BACKGROUND_WIDTH, BACKGROUND_HEIGHT, surfaces[bgLevelOne], screen, &camera);
             show(&myDot);
             showCloud(&oneCloud);
             showCloud(&twoCloud);
@@ -1213,9 +1200,12 @@ main(int argc, char* args[]) {
             moveCloud(&sixCloud);
             break;
         }
+		/*
         if(SDL_Flip(screen) == -1) {
             return 1;
         }
+		*/
+		SDL_UpdateWindowSurface(window);
         if(get_ticks(&fps) < 1000 / FRAMES_PER_SECOND) {
             SDL_Delay((1000/FRAMES_PER_SECOND) - get_ticks(&fps));
         }

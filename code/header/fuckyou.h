@@ -10,15 +10,15 @@ Karl "The Little Fuck" Ott
 #ifndef __FUCKYOU_H__
 #define __FUCKYOU_H__
 
-#include "SDL/SDL.h"
-#include "SDL/SDL_image.h"
-#include "SDL/SDL_ttf.h"
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
+#include "SDL2/SDL_ttf.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 1600
+#define SCREEN_HEIGHT 1200
 
 /* Globals */
 #define SCREEN_BPP 32
@@ -28,9 +28,12 @@ Karl "The Little Fuck" Ott
 #define DOT_HEIGHT 20
 #define CLOUDONE_HEIGHT 174
 #define CLOUDONE_WIDTH 157
+#define BACKGROUND_HEIGHT 600
+#define BACKGROUND_WIDTH 800
+
 
 #define LEVEL_WIDTH 5120 
-#define LEVEL_HEIGHT 600 
+#define LEVEL_HEIGHT 1200
 
 #define FINGER_WIDTH 35
 #define FINGER_HEIGHT 32
@@ -50,7 +53,9 @@ SDL_Rect clipsControls[12];
 enum {wKey, aKey, sKey, dKey, upKey, dwKey, enKey, esKey, spKey, lClick, rClick,
         aim};
 
-SDL_Surface * screen = NULL;
+SDL_Surface* screen = NULL;
+
+SDL_Window* window = NULL;
 
 unsigned int SOMETIME = 0;
 int quit = 0;
@@ -62,7 +67,7 @@ estate prevState = mainmenu;
 
 /*Global Surfaces*/
 #define NUMSURF 35
-SDL_Surface * surfaces[NUMSURF];
+SDL_Surface* surfaces[NUMSURF];
 enum {bg, fingerSprite, mmFinger, mmTitle, mmSubtitle, mmNewGame, mmControls,
         mmExit, pmBG, pmResume, pmControls, pmExit, pmTitle, pmSubtitle, dot, 
         cloudOne, cloudTwo, cmTitle, cmSubtitle, cmBack, cmExit, cmControls, 
@@ -78,7 +83,8 @@ SDL_Event event;
 
 SDL_Rect camera = {0,0,SCREEN_WIDTH,SCREEN_HEIGHT};
 
-SDL_Surface * load_image(const char*);
+SDL_Surface* load_image(const char*);
+SDL_Surface* SDL_ScaleSurface(SDL_Surface* Surface, Uint16 Width, Uint16 Height);
 void apply_surface(int, int, SDL_Surface*, SDL_Surface*, SDL_Rect*);
 void init();
 void load_files();
